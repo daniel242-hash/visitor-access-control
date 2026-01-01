@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: process.env.VITE_API_URL || 'visitor-access-control-production-95b8.up.railway.app',
+        target: process.env.VITE_API_URL || 'http://localhost:5000',
         changeOrigin: true,
       }
     }
