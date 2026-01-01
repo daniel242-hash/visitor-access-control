@@ -65,7 +65,7 @@ const trustedContactSchema = new mongoose.Schema(
     accessToken: {
       type: String,
       unique: true,
-      index: true,
+      //index: true,
       sparse: true, // Allow null during creation, but enforce uniqueness when present
     },
     

@@ -78,7 +78,7 @@ const visitorLogSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
       required: true,
-      index: true,
+    //  index: true,
     },
     exitTime: Date,
     

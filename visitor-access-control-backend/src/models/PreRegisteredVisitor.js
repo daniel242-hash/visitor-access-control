@@ -78,7 +78,7 @@ const preRegisteredVisitorSchema = new mongoose.Schema(
     validUntil: {
       type: Date,
       required: true,
-      index: true,
+      //index: true,
     },
     
     // ✅ NEW: Early arrival permission
