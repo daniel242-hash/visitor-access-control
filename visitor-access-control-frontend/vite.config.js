@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
+<<<<<<< HEAD
   plugins: [
     react(),
     VitePWA({
@@ -47,3 +48,15 @@ export default defineConfig({
     }),
   ],
 });
+=======
+  plugins: [react()],
+  server: {
+    proxy: {
+      '/api': {
+        target: process.env.VITE_API_URL || 'http://localhost:5000',
+        changeOrigin: true,
+      }
+    }
+  }
+})
+>>>>>>> 88c076df195fa82d5de7df1d1f40e316b3356523
