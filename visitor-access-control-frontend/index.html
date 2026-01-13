@@ -4,10 +4,56 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>visitor-access-control-frontend</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="Manage visitors and trusted contacts for your residential estate" />
+    <meta name="theme-color" content="#0891b2" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="VAC Resident" />
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    
+    <title>Visitor Access Control - Resident</title>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker
+            .register('/service-worker.js')
+            .then((registration) => {
+              console.log('✅ Service Worker registered:', registration.scope);
+              
+              // Check for updates periodically
+              setInterval(() => {
+                registration.update();
+              }, 60000); // Check every minute
+            })
+            .catch((error) => {
+              console.error('❌ Service Worker registration failed:', error);
+            });
+        });
+
+        // Listen for service worker updates
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+          console.log('🔄 Service Worker updated, reloading page...');
+          window.location.reload();
+        });
+      }
+    </script>
   </body>
 </html>

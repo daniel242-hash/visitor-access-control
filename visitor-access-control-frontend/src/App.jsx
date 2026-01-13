@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { Toaster } from 'react-hot-toast';
 import { DarkModeProvider } from './contexts/DarkModeContext';
 import { AuthProvider } from './contexts/AuthContext';
+import PWAInstallPrompt from './components/PWAInstallPrompt';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import SecurityLoginPage from './pages/SecurityLoginPage';
@@ -103,6 +104,9 @@ function App() {
             {/* Catch all */}
             <Route path="*" element={<Navigate to="/login" replace />} />
           </Routes>
+
+          {/* PWA Install Prompt - Shows on mobile when app can be installed */}
+          <PWAInstallPrompt />
         </Router>
       </DarkModeProvider>
     </AuthProvider>

@@ -20,7 +20,7 @@ if (missingEnvVars.length > 0) {
 module.exports = {
   // Server
   nodeEnv: process.env.NODE_ENV,
-  port: process.env.PORT || 5000,
+  port: process.env.PORT,
   apiVersion: process.env.API_VERSION || 'v1',
 
   // Database
@@ -28,9 +28,9 @@ module.exports = {
 
   // JWT
   jwtSecret: process.env.JWT_SECRET,
-  jwtExpire: process.env.JWT_EXPIRE || '15m',
+  jwtExpire: process.env.JWT_EXPIRE,
   jwtRefreshSecret: process.env.JWT_REFRESH_SECRET,
-  jwtRefreshExpire: process.env.JWT_REFRESH_EXPIRE || '7d',
+  jwtRefreshExpire: process.env.JWT_REFRESH_EXPIRE,
 
   // TOTP
   totpWindow: parseInt(process.env.TOTP_WINDOW) || 1,
@@ -44,7 +44,7 @@ module.exports = {
     pass: process.env.SMTP_PASS,
   },
   fromEmail: process.env.FROM_EMAIL,
-  fromName: process.env.FROM_NAME || 'FortiPass Visitor System',
+  fromName: process.env.FROM_NAME,
 
   // SMS
   twilio: {
@@ -56,12 +56,12 @@ module.exports = {
   // Encryption
   encryptionKey: process.env.ENCRYPTION_KEY,
 
-  // Frontend - Updated with fallback
-  frontendUrl: process.env.FRONTEND_URL || 'http://localhost:5173',
+  // Frontend
+  frontendUrl: process.env.FRONTEND_URL,
 
   // Rate Limiting
   rateLimit: {
-    windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 900000, // 15 minutes
+    windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 900000,
     maxRequests: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || 100,
   },
 };

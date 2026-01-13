@@ -14,16 +14,11 @@ process.on('uncaughtException', (err) => {
 // Connect to database
 connectDB();
 
-// Start server - Updated to bind to 0.0.0.0 for Railway/Render
-const PORT = config.port;
-const HOST = process.env.HOST || '0.0.0.0'; // Bind to all network interfaces
-
-const server = app.listen(PORT, HOST, () => {
-  logger.info(`🚀 Server running in ${config.nodeEnv} mode`);
-  logger.info(`📡 Listening on ${HOST}:${PORT}`);
-  logger.info(`📡 API endpoint: http://localhost:${PORT}/api/${config.apiVersion}`);
-  logger.info(`✅ Health check: http://localhost:${PORT}/health`);
-  logger.info(`🌐 Frontend URL: ${config.frontendUrl}`);
+// Start server
+const server = app.listen(config.port, () => {
+  logger.info(`🚀 Server running in ${config.nodeEnv} mode on port ${config.port}`);
+  logger.info(`📡 API endpoint: http://localhost:${config.port}/api/${config.apiVersion}`);
+  logger.info(`✅ Health check: http://localhost:${config.port}/health`);
 });
 
 // Handle unhandled promise rejections
@@ -37,19 +32,10 @@ process.on('unhandledRejection', (err) => {
   });
 });
 
-// Handle SIGTERM (for graceful shutdown on platforms like Railway/Render)
+// Handle SIGTERM
 process.on('SIGTERM', () => {
   logger.info('👋 SIGTERM received. Shutting down gracefully...');
   server.close(() => {
     logger.info('💤 Process terminated');
-  });
-});
-
-// Handle SIGINT (Ctrl+C)
-process.on('SIGINT', () => {
-  logger.info('👋 SIGINT received. Shutting down gracefully...');
-  server.close(() => {
-    logger.info('💤 Process terminated');
-    process.exit(0);
   });
 });

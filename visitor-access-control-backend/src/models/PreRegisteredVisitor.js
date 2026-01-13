@@ -75,10 +75,11 @@ const preRegisteredVisitorSchema = new mongoose.Schema(
       index: true,
     },
     
+    // ✅ FIXED: Removed "index: true" to avoid duplicate with TTL index below
     validUntil: {
       type: Date,
       required: true,
-      //index: true,
+      // index: true,  ❌ REMOVED - duplicate with TTL index
     },
     
     // ✅ NEW: Early arrival permission
@@ -124,7 +125,8 @@ preRegisteredVisitorSchema.index({ estateId: 1, expectedArrivalDate: 1 });
 preRegisteredVisitorSchema.index({ status: 1, validUntil: 1 });
 preRegisteredVisitorSchema.index({ visitorPhone: 1, estateId: 1, status: 1 });
 
-// TTL index - Automatically delete documents after validUntil expires
+// ✅ TTL index - This is the ONLY index on validUntil (no duplicate now)
+// Automatically delete documents after validUntil expires
 preRegisteredVisitorSchema.index({ validUntil: 1 }, { expireAfterSeconds: 0 });
 
 // Automatically set validUntil to end of expectedArrivalDate

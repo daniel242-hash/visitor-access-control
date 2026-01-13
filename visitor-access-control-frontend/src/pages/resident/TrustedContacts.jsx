@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Users, Plus, Link as LinkIcon, Trash2, ExternalLink } from 'lucide-react';
 import { residentService } from '../../services/residentService';
-import Button from '../../components/shared/Button';
 import LoadingSpinner from '../../components/shared/LoadingSpinner';
 import toast from 'react-hot-toast';
 
@@ -70,14 +69,13 @@ const TrustedContacts = () => {
             People who can visit without prior registration
           </p>
         </div>
-        <Button
-          variant="primary"
-          icon={Plus}
+        <button
           onClick={() => setShowAddModal(true)}
-          className="w-full sm:w-auto"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-colors shadow-sm w-full sm:w-auto"
         >
-          Add Contact
-        </Button>
+          <Plus size={20} />
+          <span>Add Contact</span>
+        </button>
       </div>
 
       {/* Contacts List - Mobile Responsive */}
@@ -92,14 +90,13 @@ const TrustedContacts = () => {
           <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-6 px-4">
             Add family members, friends, or regular visitors for easy access
           </p>
-          <Button
-            variant="primary"
-            icon={Plus}
+          <button
             onClick={() => setShowAddModal(true)}
-            className="w-full sm:w-auto"
+            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-colors shadow-sm w-full sm:w-auto"
           >
-            Add Your First Contact
-          </Button>
+            <Plus size={20} />
+            <span>Add Your First Contact</span>
+          </button>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
@@ -248,9 +245,13 @@ const AddContactModal = ({ onClose, onSuccess }) => {
                 readOnly
                 className="flex-1 px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-xs sm:text-sm text-gray-900 dark:text-white"
               />
-              <Button variant="primary" onClick={copyLink} icon={LinkIcon} className="w-full sm:w-auto">
-                Copy
-              </Button>
+              <button
+                onClick={copyLink}
+                className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-colors"
+              >
+                <LinkIcon size={16} />
+                <span>Copy</span>
+              </button>
             </div>
           </div>
 
@@ -265,9 +266,12 @@ const AddContactModal = ({ onClose, onSuccess }) => {
             </ul>
           </div>
 
-          <Button variant="primary" fullWidth onClick={onSuccess}>
+          <button
+            onClick={onSuccess}
+            className="w-full inline-flex items-center justify-center px-4 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-colors"
+          >
             Done
-          </Button>
+          </button>
         </div>
       </div>
     );
@@ -367,22 +371,27 @@ const AddContactModal = ({ onClose, onSuccess }) => {
           </div>
 
           <div className="flex gap-3 mt-4 sm:mt-6">
-            <Button
+            <button
               type="button"
-              variant="outline"
-              fullWidth
               onClick={onClose}
+              className="flex-1 px-4 py-2.5 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
             >
               Cancel
-            </Button>
-            <Button
+            </button>
+            <button
               type="submit"
-              variant="primary"
-              fullWidth
-              loading={loading}
+              disabled={loading}
+              className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-primary-600 hover:bg-primary-700 disabled:bg-primary-400 text-white font-medium rounded-lg transition-colors"
             >
-              Add Contact
-            </Button>
+              {loading ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></div>
+                  <span>Adding...</span>
+                </>
+              ) : (
+                <span>Add Contact</span>
+              )}
+            </button>
           </div>
         </form>
       </div>
@@ -440,9 +449,13 @@ const AccessLinkModal = ({ contact, onClose }) => {
               readOnly
               className="flex-1 px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-xs sm:text-sm text-gray-900 dark:text-white"
             />
-            <Button variant="primary" onClick={copyLink} icon={LinkIcon} className="w-full sm:w-auto">
-              Copy
-            </Button>
+            <button
+              onClick={copyLink}
+              className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-colors w-full sm:w-auto"
+            >
+              <LinkIcon size={16} />
+              <span>Copy</span>
+            </button>
           </div>
         </div>
 
@@ -457,21 +470,19 @@ const AccessLinkModal = ({ contact, onClose }) => {
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3">
-          <Button
-            variant="outline"
-            fullWidth
+          <button
             onClick={onClose}
+            className="flex-1 px-4 py-2.5 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
           >
             Close
-          </Button>
-          <Button
-            variant="primary"
-            fullWidth
+          </button>
+          <button
             onClick={shareViaWhatsApp}
-            icon={ExternalLink}
+            className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-colors"
           >
-            Share via WhatsApp
-          </Button>
+            <ExternalLink size={16} />
+            <span>Share via WhatsApp</span>
+          </button>
         </div>
       </div>
     </div>
